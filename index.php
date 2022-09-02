@@ -17,6 +17,7 @@ if(!function_exists('add_action')){
 define('PAT_PLUGIN_URL', __FILE__);
 
 register_activation_hook(PAT_PLUGIN_URL, 'table_creator');
+register_uninstall_hook(PAT_PLUGIN_URL, 'pat_plugin');
 
 // includes
 include('functions.php');
@@ -68,6 +69,8 @@ function da_emp_shortcode_call()
 
 //[employee_list]
 add_shortcode('employee_list', 'da_PAT_list_callback');
+
+
 function da_PAT_list_callback()
 {
     global $wpdb;
