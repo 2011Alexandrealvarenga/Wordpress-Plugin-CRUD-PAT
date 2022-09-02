@@ -12,7 +12,11 @@ if(!function_exists('add_action')){
     echo 'Opa! Eu sou só um plugin, não posso ser chamado diretamente!';
     exit;
 }
-register_activation_hook(__FILE__, 'table_creator');
+
+// setup
+define('PAT_PLUGIN_URL', __FILE__);
+
+register_activation_hook(PAT_PLUGIN_URL, 'table_creator');
 
 // includes
 include('functions.php');
@@ -37,6 +41,8 @@ function table_creator()
 
 
 add_action('admin_menu', 'da_display_esm_menu');
+add_action('admin_enqueue_scripts', 'pat_admin_enqueue');
+
 function da_display_esm_menu()
 {
 
@@ -249,3 +255,15 @@ function da_emp_delete_call()
     </form>
 
 <?php }
+
+function pat_admin_enqueue(){
+    
+    // Registros
+    wp_register_style(
+        'br_style',
+        plugins_url('/assets/css/style.css', PAT_PLUGIN_URL)
+    );
+
+    // Usos
+    wp_enqueue_style('br_style');
+}
