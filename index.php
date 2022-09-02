@@ -1,14 +1,21 @@
 <?php
 /*
- * Plugin Name: CRUD - Unidades PAT
- * Description: My plugin to explain the crud functionality.
+ * Plugin Name: Unidades PAT
+ * Description: Plugin para Inserir, atualizar, ler e deletar Unidade PAT
  * Version: 1.0
- * Author: Diwakar Academy
- * Plugin URI: https://diwakaracademy.com/how-to-create-crud-operations-plugin-in-wordpress/
- * Author URI: https://diwakaracademy.com/
+ * Author: Alexandre Alvarenga
+ * Plugin URI: 
+ * Author URI: 
  */
 
+if(!function_exists('add_action')){
+    echo 'Opa! Eu sou só um plugin, não posso ser chamado diretamente!';
+    exit;
+}
 register_activation_hook(__FILE__, 'table_creator');
+
+// includes
+include('functions.php');
 function table_creator()
 {
     global $wpdb;
