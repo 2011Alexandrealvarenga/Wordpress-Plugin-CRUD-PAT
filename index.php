@@ -79,54 +79,57 @@ function da_PAT_list_callback()
     }
 
     ?>
+    <div class="content-pat">
+
+        <h1 class="title">PAT - Unidades</h1><br>
         <h4 id="msg"><?php echo $msg; ?></h4>
-    <p>teste pagin add empregado</p>
-    <form method="post">
+        <form method="post">
 
-        <p>
-            <label>Local</label>
-            <input type="text" name="local" placeholder="Local" required>
+            <p>
+                <label>Local</label>
+                <input type="text" name="local" placeholder="Local" required>
 
-        </p>
+            </p>
 
-        <p>
-            <label>Endereço</label>
-            <input type="text" name="endereco" placeholder="Endereço" required>
+            <p>
+                <label>Endereço</label>
+                <input type="text" name="endereco" placeholder="Endereço" required>
 
-        </p>
-        <p>
-            <label>Municipio</label>
-            <input type="text" name="municipio" placeholder="Município" required>
-        </p>
-        <p>
-            <label>Telefone</label>
-            <input type="text" name="telefone" placeholder="Telefone" required>
-        </p>
-        <p>
-            <label>CEP</label>
-            <input type="text" name="cep" placeholder="cep" required>
-        </p>
+            </p>
+            <p>
+                <label>Municipio</label>
+                <input type="text" name="municipio" placeholder="Município" required>
+            </p>
+            <p>
+                <label>Telefone</label>
+                <input type="text" name="telefone" placeholder="Telefone" required>
+            </p>
+            <p>
+                <label>CEP</label>
+                <input type="text" name="cep" placeholder="cep" required>
+            </p>
 
-        <p>
-            <button type="submit" name="submit">Submit</button>
-        </p>
-    </form>
+            <p>
+                <button type="submit" name="submit">Cadastrar</button>
+            </p>
+        </form>
+    </div>
     <?php 
     // lista de registro
     $table_name = $wpdb->prefix . 'PAT';
     $employee_list = $wpdb->get_results($wpdb->prepare("select * FROM $table_name", ""), ARRAY_A);
-    if (count($employee_list) > 0): ?>
-    <p>pagina inicial</p>
+    if (count($employee_list) > 0): ?>        
         <div style="margin-top: 40px;">
-            <table border="1" cellpadding="10">
+            <table border="1" cellpadding="10" width="90%">
                 <tr>
+                    <th>ID</th>
                     <th>Local</th>
                     <th>Endereço</th>
                     <th>Municipio</th>
                     <th>CEP</th>
                     <th>Telefone</th>
                     <?php if (is_admin()): ?>
-                        <th>Action</th>
+                        <th>Ação</th>
                     <?php endif; ?>
                 </tr>
                 <?php $i = 1;
@@ -150,7 +153,7 @@ function da_PAT_list_callback()
             </table>
 
         </div>
-    <?php else:echo "<h2>Employee Record Not Found</h2>";endif;
+    <?php else:echo "<h2>Não há Informação</h2>";endif;
 }
 
 
@@ -190,7 +193,7 @@ function da_emp_update_call()
         </p>
         <p>
             <label>Município</label>
-            <input type="email" name="municipio" placeholder="Município"
+            <input type="text" name="municipio" placeholder="Município"
                    value="<?php echo $employee_details['municipio']; ?>" required>
         </p>
         <p>
