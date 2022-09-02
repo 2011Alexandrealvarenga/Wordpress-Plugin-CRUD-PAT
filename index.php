@@ -17,10 +17,11 @@ function table_creator()
     $sql = "DROP TABLE IF EXISTS $table_name;
             CREATE TABLE $table_name(
             id mediumint(11) NOT NULL AUTO_INCREMENT,
-            emp_id varchar(50) NOT NULL,
-            emp_name varchar (250) NOT NULL,
-            emp_email varchar (250) NOT NULL,
-            emp_dept varchar (250) NOT NULL,
+            local varchar(50) NOT NULL,
+            endereco varchar (250) NOT NULL,
+            municipio varchar (250) NOT NULL,
+            telefone varchar (250) NOT NULL,
+            cep varchar (10) NOT NULL,
             PRIMARY KEY id(id)
             )$charset_collate;";
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -63,12 +64,12 @@ function da_PAT_list_callback()
     if (isset($_REQUEST['submit'])) {
 
         $wpdb->insert("$table_name", [
-            "emp_id" => $_REQUEST['emp_id'],
-            'emp_name' => $_REQUEST['emp_name'],
-            'emp_email' => $_REQUEST['emp_email'],
-            'emp_dept' => $_REQUEST['emp_dept']
+            "local" => $_REQUEST['local'],
+            'endereco' => $_REQUEST['endereco'],
+            'municipio' => $_REQUEST['municipio'],
+            'telefone' => $_REQUEST['telefone'],
+            'cep' => $_REQUEST['cep']
         ]);
-
 
         if ($wpdb->insert_id > 0) {
             $msg = "Saved Successfully";
@@ -83,23 +84,27 @@ function da_PAT_list_callback()
     <form method="post">
 
         <p>
-            <label>EMP ID</label>
-            <input type="text" name="emp_id" placeholder="Enter ID" required>
+            <label>Local</label>
+            <input type="text" name="local" placeholder="Local" required>
 
         </p>
 
         <p>
-            <label>Name</label>
-            <input type="text" name="emp_name" placeholder="Enter Name" required>
+            <label>Endereço</label>
+            <input type="text" name="endereco" placeholder="Endereço" required>
 
         </p>
         <p>
-            <label>Email</label>
-            <input type="email" name="emp_email" placeholder="Enter Email" required>
+            <label>Municipio</label>
+            <input type="text" name="municipio" placeholder="Município" required>
         </p>
         <p>
-            <label>Department</label>
-            <input type="text" name="emp_dept" placeholder="Enter Department" required>
+            <label>Telefone</label>
+            <input type="text" name="telefone" placeholder="Telefone" required>
+        </p>
+        <p>
+            <label>CEP</label>
+            <input type="text" name="cep" placeholder="cep" required>
         </p>
 
         <p>
@@ -115,11 +120,11 @@ function da_PAT_list_callback()
         <div style="margin-top: 40px;">
             <table border="1" cellpadding="10">
                 <tr>
-                    <th>S.No.</th>
-                    <th>EMP ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Department</th>
+                    <th>Local</th>
+                    <th>Endereço</th>
+                    <th>Municipio</th>
+                    <th>CEP</th>
+                    <th>Telefone</th>
                     <?php if (is_admin()): ?>
                         <th>Action</th>
                     <?php endif; ?>
@@ -128,14 +133,16 @@ function da_PAT_list_callback()
                 foreach ($employee_list as $index => $employee): ?>
                     <tr>
                         <td><?php echo $i++; ?></td>
-                        <td><?php echo $employee['emp_id']; ?></td>
-                        <td><?php echo $employee['emp_name']; ?></td>
-                        <td><?php echo $employee['emp_email']; ?></td>
-                        <td><?php echo $employee['emp_dept']; ?></td>
+                        <td><?php echo $employee['local']; ?></td>
+                        <td><?php echo $employee['endereco']; ?></td>
+                        <td><?php echo $employee['municipio']; ?></td>
+                        <td><?php echo $employee['cep']; ?></td>
+                        <td><?php echo $employee['telefone']; ?></td>
+
                         <?php if (is_admin()): ?>
                             <td>
-                                <a href="admin.php?page=update-emp&id=<?php echo $employee['id']; ?>">Edit</a>
-                                <a href="admin.php?page=delete-emp&id=<?php echo $employee['id']; ?>">Delete</a>
+                                <a href="admin.php?page=update-emp&id=<?php echo $employee['id']; ?>">Editar</a>
+                                <a href="admin.php?page=delete-emp&id=<?php echo $employee['id']; ?>">Deletar</a>
                             </td>
                         <?php endif; ?>
                     </tr>
@@ -156,7 +163,13 @@ function da_emp_update_call()
     $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
     if (isset($_REQUEST['update'])) {
         if (!empty($id)) {
-            $wpdb->update("$table_name", ["emp_id" => $_REQUEST['emp_id'], 'emp_name' => $_REQUEST['emp_name'], 'emp_email' => $_REQUEST['emp_email'], 'emp_dept' => $_REQUEST['emp_dept']], ["id" => $id]);
+            $wpdb->update("$table_name", [
+                "local" => $_REQUEST['local'], 
+                'endereco' => $_REQUEST['endereco'], 
+                'municipio' => $_REQUEST['municipio'], 
+                'telefone' => $_REQUEST['telefone'],
+                'cep' => $_REQUEST['cep']            
+        ], ["id" => $id]);
             $msg = 'Data updated';
             echo '<a href="wp-admin/admin.php">Voltar para a lista</a>';
         }
@@ -165,28 +178,33 @@ function da_emp_update_call()
     <h4><?php echo $msg; ?></h4>
     <form method="post">
         <p>
-            <label>EMP ID</label>
-            <input type="text" name="emp_id" placeholder="Enter ID" value="<?php echo $employee_details['emp_id']; ?>"
+            <label>Local</label>
+            <input type="text" name="local" placeholder="Local" value="<?php echo $employee_details['local']; ?>"
                    required>
         </p>
 
         <p>
-            <label>Name</label>
-            <input type="text" name="emp_name" placeholder="Enter Name"
-                   value="<?php echo $employee_details['emp_name']; ?>" required>
+            <label>Endereço</label>
+            <input type="text" name="endereco" placeholder="Endereço"
+                   value="<?php echo $employee_details['endereco']; ?>" required>
         </p>
         <p>
-            <label>Email</label>
-            <input type="email" name="emp_email" placeholder="Enter Email"
-                   value="<?php echo $employee_details['emp_email']; ?>" required>
+            <label>Município</label>
+            <input type="email" name="municipio" placeholder="Município"
+                   value="<?php echo $employee_details['municipio']; ?>" required>
         </p>
         <p>
-            <label>Department</label>
-            <input type="text" name="emp_dept" placeholder="Enter Department"
-                   value="<?php echo $employee_details['emp_dept']; ?>" required>
+            <label>Telefone</label>
+            <input type="text" name="telefone" placeholder="Telefone"
+                   value="<?php echo $employee_details['telefone']; ?>" required>
         </p>
         <p>
-            <button type="submit" name="update">Update</button>
+            <label>CEP</label>
+            <input type="text" name="cep" placeholder="CEP"
+                   value="<?php echo $employee_details['cep']; ?>" required>
+        </p>
+        <p>
+            <button type="submit" name="update">Atualize</button>
         </p>
     </form>
 <?php }
@@ -210,12 +228,12 @@ function da_emp_delete_call()
     <?php } ?>
     <form method="post">
         <p>
-            <label>Are you sure want delete?</label><br>
-            <input type="radio" name="conf" value="yes">Yes
-            <input type="radio" name="conf" value="no" checked>No
+            <label>Você realmente apagar?</label><br>
+            <input type="radio" name="conf" value="yes">Sim
+            <input type="radio" name="conf" value="no" checked>Não
         </p>
         <p>
-            <button type="submit" name="delete">Delete</button>
+            <button type="submit" name="delete">Apagar</button>
             <input type="hidden" name="id" value="<?php echo $id; ?>">
         </p>
     </form>
