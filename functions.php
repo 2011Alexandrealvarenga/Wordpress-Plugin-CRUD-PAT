@@ -77,26 +77,26 @@ function da_PAT_list_callback()
 
             <p>
                 <label>Local</label>
-                <input type="text" name="local" placeholder="Local" required>
+                <input type="text" name="local" placeholder="" required>
 
             </p>
 
             <p>
                 <label>Endereço</label>
-                <input type="text" name="endereco" placeholder="Endereço" required>
+                <input type="text" name="endereco" placeholder="">
 
             </p>
             <p>
                 <label>Municipio</label>
-                <input type="text" name="municipio" placeholder="Município" required>
+                <input type="text" name="municipio" placeholder="">
             </p>
             <p>
                 <label>Telefone</label>
-                <input type="text" name="telefone" placeholder="Telefone" required>
+                <input type="text" name="telefone" placeholder="">
             </p>
             <p>
                 <label>CEP</label>
-                <input type="text" name="cep" placeholder="cep" required>
+                <input type="text" name="cep" placeholder="">
             </p>
 
             <p>
@@ -107,7 +107,7 @@ function da_PAT_list_callback()
     <?php 
     // lista de registro
     $table_name = $wpdb->prefix . 'PAT';
-    $employee_list = $wpdb->get_results($wpdb->prepare("select * FROM $table_name", ""), ARRAY_A);
+    $employee_list = $wpdb->get_results($wpdb->prepare("select * FROM $table_name ORDER BY local ASC", ""), ARRAY_A);
     if (count($employee_list) > 0): ?>        
         <div style="margin-top: 40px;">
             <table border="1" cellpadding="10" width="90%">
@@ -151,6 +151,11 @@ function da_PAT_list_callback()
 function da_emp_update_call()
 {
     global $wpdb;
+    
+    $url = site_url();
+    $url2 = '/wp-admin/admin.php?page=emp-list';
+    $urlvoltar = $url.$url2;
+
     $table_name = $wpdb->prefix . 'PAT';
     $msg = '';
     $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
@@ -164,37 +169,38 @@ function da_emp_update_call()
                 'cep' => $_REQUEST['cep']            
         ], ["id" => $id]);
             $msg = 'Data updated';
-            echo '<a href="">Voltar para a lista</a>';
+            echo '<a href="'. $urlvoltar.'">Voltar para a lista</a>';
         }
     }
     $employee_details = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table_name where id = %d", $id), ARRAY_A); ?>
+   
     <h4><?php echo $msg; ?></h4>
     <form method="post">
         <p>
             <label>Local</label>
-            <input type="text" name="local" placeholder="Local" value="<?php echo $employee_details['local']; ?>"
+            <input type="text" name="local" placeholder="" value="<?php echo $employee_details['local']; ?>"
                    required>
         </p>
 
         <p>
             <label>Endereço</label>
-            <input type="text" name="endereco" placeholder="Endereço"
-                   value="<?php echo $employee_details['endereco']; ?>" required>
+            <input type="text" name="endereco" placeholder=""
+                   value="<?php echo $employee_details['endereco']; ?>" >
         </p>
         <p>
             <label>Município</label>
-            <input type="text" name="municipio" placeholder="Município"
-                   value="<?php echo $employee_details['municipio']; ?>" required>
+            <input type="text" name="municipio" placeholder=""
+                   value="<?php echo $employee_details['municipio']; ?>" >
         </p>
         <p>
             <label>Telefone</label>
-            <input type="text" name="telefone" placeholder="Telefone"
-                   value="<?php echo $employee_details['telefone']; ?>" required>
+            <input type="text" name="telefone" placeholder=""
+                   value="<?php echo $employee_details['telefone']; ?>" >
         </p>
         <p>
             <label>CEP</label>
-            <input type="text" name="cep" placeholder="CEP"
-                   value="<?php echo $employee_details['cep']; ?>" required>
+            <input type="text" name="cep" placeholder=""
+                   value="<?php echo $employee_details['cep']; ?>" >
         </p>
         <p>
             <button type="submit" name="update">Atualize</button>
@@ -216,7 +222,7 @@ function da_emp_delete_call()
             }
         } ?>
         <script>
-            location.href = "<?php echo site_url(); ?>/wp-admin/admin.php?page=emp-list";
+            location.href = "<?php echo site_url(); ?>/wp-admin/admin.php";
         </script>
     <?php } ?>
     <form method="post">
