@@ -1,6 +1,6 @@
 <?php
 /*
- * Plugin Name: Unidades PAT
+ * Plugin Name: PAT - Unidades
  * Description: Plugin para Inserir, atualizar, ler e deletar Unidade PAT
  * Version: 1.0
  * Author: Alexandre Alvarenga
