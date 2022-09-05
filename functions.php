@@ -74,34 +74,12 @@ function da_PAT_list_callback()
         <h1 class="title">PAT - Unidades</h1><br>
         <h4 id="msg"><?php echo $msg; ?></h4>
         <form method="post">
-
-            <p>
-                <label>Local</label>
-                <input type="text" name="local" placeholder="" required>
-
-            </p>
-
-            <p>
-                <label>Endereço</label>
-                <input type="text" name="endereco" placeholder="">
-
-            </p>
-            <p>
-                <label>Municipio</label>
-                <input type="text" name="municipio" placeholder="">
-            </p>
-            <p>
-                <label>Telefone</label>
-                <input type="text" name="telefone" placeholder="">
-            </p>
-            <p>
-                <label>CEP</label>
-                <input type="text" name="cep" placeholder="">
-            </p>
-
-            <p>
-                <button type="submit" name="submit">Cadastrar</button>
-            </p>
+            <p><label>Local</label><input type="text" name="local" placeholder="" required></p>
+            <p><label>Endereço</label><input type="text" name="endereco" placeholder=""></p>
+            <p><label>Municipio</label><input type="text" name="municipio" placeholder=""></p>
+            <p><label>Telefone</label><input type="text" name="telefone" placeholder=""></p>
+            <p><label>CEP</label><input type="text" name="cep" placeholder=""></p>
+            <p><button type="submit" name="submit">Cadastrar</button></p>
         </form>
     </div>
     <?php 
