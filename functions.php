@@ -26,18 +26,10 @@ function da_display_esm_menu()
     add_submenu_page('emp-list', 'Employee List', 'Employee List', 'manage_options', 'emp-list', 'da_PAT_list_callback');
     add_submenu_page(null, 'Update Employee', 'Update Employee', 'manage_options', 'update-emp', 'da_emp_update_call');
     add_submenu_page(null, 'Delete Employee', 'Delete Employee', 'manage_options', 'delete-emp', 'da_emp_delete_call');
-    add_submenu_page('emp-list', 'Employee List Shortcode', 'Employee List Shortcode', 'edit_others_posts', 'emp-shotcode', 'da_emp_shortcode_call');
 
 }
 
-function da_emp_shortcode_call()
-{ ?>
 
-    <p>
-        <label>Shortcode</label>
-        <input type="text" value="[employee_list]">
-    </p>
-<?php }
 
 
 
@@ -62,9 +54,9 @@ function da_PAT_list_callback()
         ]);
 
         if ($wpdb->insert_id > 0) {
-            $msg = "Saved Successfully";
+            $msg = "Gravado com sucesso!";
         } else {
-            $msg = "Failed to save data";
+            $msg = "Falha ao gravar!";
         }
     }
 
@@ -84,8 +76,18 @@ function da_PAT_list_callback()
     </div>
     <?php 
     // lista de registro
+    // receber o numero da pagina
+    $pagina_atual = filter_input(INPUT_GET, 'paged', FILTER_SANITIZE_NUMBER_INT);
+    $pagina = (!empty($pagina_atual))? $pagina_atual : 1;
+
+    // setar a quantidade de itens por pagina
+    $qnt_result_pg = 2;
+
+    // calcular o inicio visualizacao
+    $inicio = ($qnt_result_pg * $pagina) - $qnt_result_pg;
+
     $table_name = $wpdb->prefix . 'PAT';
-    $employee_list = $wpdb->get_results($wpdb->prepare("select * FROM $table_name ORDER BY local ASC", ""), ARRAY_A);
+    $employee_list = $wpdb->get_results($wpdb->prepare("select * FROM $table_name ORDER BY local asc LIMIT $inicio, $qnt_result_pg"), ARRAY_A);
     if (count($employee_list) > 0): ?>        
         <div style="margin-top: 40px;">
             <table border="1" cellpadding="10" width="90%">
