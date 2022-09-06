@@ -18,34 +18,23 @@ function pat_table_creator()
     dbDelta($sql);
 }
 
-
 function pat_da_display_esm_menu()
 {
-
     add_menu_page('PAT Unidades', 'PAT Unidades', 'manage_options', 'pat-emp-list', 'da_PAT_list_callback');
     add_submenu_page('pat-emp-list', 'PAT - Lista', 'PAT - Lista', 'manage_options', 'pat-emp-list', 'da_PAT_list_callback');
     add_submenu_page(null, 'PAT Atualiza', 'PAT Atualiza', 'manage_options', 'update-pat', 'pat_da_emp_update_call');
     add_submenu_page(null, 'Delete Employee', 'Delete Employee', 'manage_options', 'delete-pat', 'pat_da_emp_delete_call');
-    // add_submenu_page('pat-emp-list', 'PAT - Lista Shortcode', 'PAT - Lista Shortcode', 'edit_others_posts', 'emp-shotcode', 'pat_da_emp_shortcode_call');
-
 }
 
-
-
-
-
 //[employee_list]
-add_shortcode('employee_list', 'da_PAT_list_callback');
-
+// add_shortcode('employee_list', 'da_PAT_list_callback');
 
 function da_PAT_list_callback()
 {
     global $wpdb;
-    // add registro
     $table_name = $wpdb->prefix . 'PAT';
     $msg = '';
     if (isset($_REQUEST['submit'])) {
-
         $wpdb->insert("$table_name", [
             "local" => $_REQUEST['local'],
             'endereco' => $_REQUEST['endereco'],
@@ -67,12 +56,12 @@ function da_PAT_list_callback()
         <h1 class="title">PAT - Unidades</h1><br>
         <h4 id="msg"><?php echo $msg; ?></h4>
         <form method="post">
-            <p><label>Local</label><input type="text" name="local" placeholder="" required></p>
-            <p><label>Endereço</label><input type="text" name="endereco" placeholder=""></p>
-            <p><label>Municipio</label><input type="text" name="municipio" placeholder=""></p>
-            <p><label>Telefone</label><input type="text" name="telefone" placeholder=""></p>
-            <p><label>CEP</label><input type="text" name="cep" placeholder=""></p>
-            <p><button type="submit" name="submit">Cadastrar</button></p>
+            <label>Local</label><input type="text" name="local" required>
+            <label>Endereço</label><input type="text" name="endereco" >
+            <label>Municipio</label><input type="text" name="municipio" >
+            <label>Telefone</label><input type="text" name="telefone" >
+            <label>CEP</label><input type="text" name="cep" >
+            <button type="submit" name="submit">Cadastrar</button>
         </form>
     </div>
     <?php 
@@ -187,36 +176,24 @@ function pat_da_emp_update_call()
     $employee_details = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table_name where id = %d", $id), ARRAY_A); ?>
    
     <h4><?php echo $msg; ?></h4>
-    <form method="post">
-        <p>
-            <label>Local</label>
-            <input type="text" name="local" placeholder="" value="<?php echo $employee_details['local']; ?>"
-                   required>
-        </p>
+    <form method="post">        
+        <label>Local</label>
+        <input type="text" name="local" value="<?php echo $employee_details['local']; ?>" required>
 
-        <p>
-            <label>Endereço</label>
-            <input type="text" name="endereco" placeholder=""
-                   value="<?php echo $employee_details['endereco']; ?>" >
-        </p>
-        <p>
-            <label>Município</label>
-            <input type="text" name="municipio" placeholder=""
-                   value="<?php echo $employee_details['municipio']; ?>" >
-        </p>
-        <p>
-            <label>Telefone</label>
-            <input type="text" name="telefone" placeholder=""
-                   value="<?php echo $employee_details['telefone']; ?>" >
-        </p>
-        <p>
-            <label>CEP</label>
-            <input type="text" name="cep" placeholder=""
-                   value="<?php echo $employee_details['cep']; ?>" >
-        </p>
-        <p>
-            <button type="submit" name="update">Atualizar</button>
-        </p>
+        <label>Endereço</label>
+        <input type="text" name="endereco" value="<?php echo $employee_details['endereco']; ?>" >
+
+        <label>Município</label>
+        <input type="text" name="municipio" value="<?php echo $employee_details['municipio']; ?>" >
+
+        <label>Telefone</label>
+        <input type="text" name="telefone" value="<?php echo $employee_details['telefone']; ?>" >
+
+        <label>CEP</label>
+        <input type="text" name="cep" value="<?php echo $employee_details['cep']; ?>" >
+
+        <button type="submit" name="update">Atualizar</button>
+
     </form>
 <?php }
 
@@ -237,15 +214,13 @@ function pat_da_emp_delete_call()
         </script>
     <?php } ?>
     <form method="post">
-        <p>
+        <div class="delete-register">
             <label>Deseja realmente apagar?</label><br>
             <input type="radio" name="conf" value="yes">Sim
-            <input type="radio" name="conf" value="no" checked>Não
-        </p>
-        <p>
+            <input type="radio" name="conf" value="no" checked>Não        
+        
             <button type="submit" name="delete">Apagar</button>
             <input type="hidden" name="id" value="<?php echo $id; ?>">
-        </p>
+        </div>        
     </form>
-
 <?php }
