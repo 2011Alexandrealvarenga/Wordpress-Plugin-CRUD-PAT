@@ -26,18 +26,11 @@ function pat_da_display_esm_menu()
     add_submenu_page('pat-emp-list', 'PAT - Lista', 'PAT - Lista', 'manage_options', 'pat-emp-list', 'da_PAT_list_callback');
     add_submenu_page(null, 'PAT Atualiza', 'PAT Atualiza', 'manage_options', 'update-pat', 'pat_da_emp_update_call');
     add_submenu_page(null, 'Delete Employee', 'Delete Employee', 'manage_options', 'delete-pat', 'pat_da_emp_delete_call');
-    add_submenu_page('pat-emp-list', 'PAT - Lista Shortcode', 'PAT - Lista Shortcode', 'edit_others_posts', 'emp-shotcode', 'pat_da_emp_shortcode_call');
+    // add_submenu_page('pat-emp-list', 'PAT - Lista Shortcode', 'PAT - Lista Shortcode', 'edit_others_posts', 'emp-shotcode', 'pat_da_emp_shortcode_call');
 
 }
 
-function pat_da_emp_shortcode_call()
-{ ?>
 
-    <p>
-        <label>Shortcode</label>
-        <input type="text" value="[employee_list]">
-    </p>
-<?php }
 
 
 
@@ -191,7 +184,7 @@ function pat_da_emp_update_call()
                    value="<?php echo $employee_details['cep']; ?>" >
         </p>
         <p>
-            <button type="submit" name="update">Atualize</button>
+            <button type="submit" name="update">Atualizar</button>
         </p>
     </form>
 <?php }
@@ -215,7 +208,7 @@ function pat_da_emp_delete_call()
     <?php } ?>
     <form method="post">
         <p>
-            <label>Você realmente apagar?</label><br>
+            <label>Deseja realmente apagar?</label><br>
             <input type="radio" name="conf" value="yes">Sim
             <input type="radio" name="conf" value="no" checked>Não
         </p>
