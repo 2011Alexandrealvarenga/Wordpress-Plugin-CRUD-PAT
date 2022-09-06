@@ -17,7 +17,6 @@ if(isset($_POST['input'])){
         
         ?>
         <table class="table table-bordered table-striped mt-4" border="1" cellpadding="10" width="90%">
-            <p>resultado da busca</p>
             <thead>
                 <tr>
                     <th>Local</th>  

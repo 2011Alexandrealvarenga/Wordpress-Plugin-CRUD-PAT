@@ -102,7 +102,6 @@ function da_PAT_list_callback()
                 $("#live_search").keyup(function(){
                     var input = $(this).val();
                     // alert(input);
-
                     var url_search =  "<?php echo site_url(); ?>/wp-content/plugins/Wordpress-Plugin-CRUD-PAT/busca-resultado.php";
                     
                     if(input != ""){
@@ -124,7 +123,7 @@ function da_PAT_list_callback()
                 });
             });
         </script>   
-        <div id="registros-todos-dados-tabela" style="margin-top: 40px;">
+        <div id="registros-todos-dados-tabela" style="margin: 40px 10px;">
             <?php resultado_busca($employee_list);?>
         </div>
     <?php else:echo "<h2>Não há Informação</h2>";endif;
@@ -132,7 +131,7 @@ function da_PAT_list_callback()
 
 
 function resultado_busca($employee_list){?>
-    <table border="1" cellpadding="10" width="90%">
+    <table border="1" cellpadding="10" width="100%">
         <tr>
             <th>ID</th>
             <th>Local</th>
