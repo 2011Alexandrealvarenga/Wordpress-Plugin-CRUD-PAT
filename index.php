@@ -21,20 +21,9 @@ register_uninstall_hook(PAT_PLUGIN_URL, 'pat_plugin');
 
 // includes
 include('functions.php');
+include('enqueue.php');
 
 
 add_action('admin_menu', 'pat_da_display_esm_menu');
-add_action('admin_enqueue_scripts', 'pat_admin_enqueue');
+add_action('admin_enqueue_scripts', 'pat_admin_enqueue_css');
 
-
-function pat_admin_enqueue(){
-    
-    // Registros
-    wp_register_style(
-        'br_style',
-        plugins_url('/assets/css/style.css', PAT_PLUGIN_URL)
-    );
-
-    // Usos
-    wp_enqueue_style('br_style');
-}

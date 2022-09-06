@@ -94,7 +94,7 @@ function da_PAT_list_callback()
         <div class="busca">
             <input type="text" class="form-control" id="live_search" autocomplete="off" placeholder="Ex.: Cidade, CEP, rua ...">
         </div>   
-        <div id="searchresult"></div>
+        <div id="searchresult" style="margin: 40px 10px 0 0; display: block;"></div>
         <script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         <script type="text/javascript">
@@ -123,7 +123,7 @@ function da_PAT_list_callback()
                 });
             });
         </script>   
-        <div id="registros-todos-dados-tabela" style="margin: 40px 10px;">
+        <div id="registros-todos-dados-tabela" style="margin: 40px 10px 0 0;">
             <?php resultado_busca($employee_list);?>
         </div>
     <?php else:echo "<h2>Não há Informação</h2>";endif;

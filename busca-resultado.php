@@ -19,7 +19,7 @@ if(isset($_POST['input'])){
         <table class="table table-bordered table-striped mt-4" border="1" cellpadding="10" width="90%">
             <thead>
                 <tr>
-                    <th>Local</th>  
+                    <th>ID</th>  
                     <th>Local</th>  
                     <th>Endereço</th>
                     <th>Município</th>
