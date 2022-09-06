@@ -1,5 +1,5 @@
 <?php 
-function table_creator()
+function pat_table_creator()
 {
     global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
@@ -19,17 +19,25 @@ function table_creator()
 }
 
 
-function da_display_esm_menu()
+function pat_da_display_esm_menu()
 {
 
-    add_menu_page('PAT Unidades', 'PAT Unidades', 'manage_options', 'emp-list', 'da_PAT_list_callback');
-    add_submenu_page('emp-list', 'Employee List', 'Employee List', 'manage_options', 'emp-list', 'da_PAT_list_callback');
-    add_submenu_page(null, 'Update Employee', 'Update Employee', 'manage_options', 'update-emp', 'da_emp_update_call');
-    add_submenu_page(null, 'Delete Employee', 'Delete Employee', 'manage_options', 'delete-emp', 'da_emp_delete_call');
+    add_menu_page('PAT Unidades', 'PAT Unidades', 'manage_options', 'pat-emp-list', 'da_PAT_list_callback');
+    add_submenu_page('pat-emp-list', 'PAT - Lista', 'PAT - Lista', 'manage_options', 'pat-emp-list', 'da_PAT_list_callback');
+    add_submenu_page(null, 'PAT Atualiza', 'PAT Atualiza', 'manage_options', 'update-pat', 'pat_da_emp_update_call');
+    add_submenu_page(null, 'Delete Employee', 'Delete Employee', 'manage_options', 'delete-pat', 'pat_da_emp_delete_call');
+    add_submenu_page('pat-emp-list', 'PAT - Lista Shortcode', 'PAT - Lista Shortcode', 'edit_others_posts', 'emp-shotcode', 'pat_da_emp_shortcode_call');
 
 }
 
+function pat_da_emp_shortcode_call()
+{ ?>
 
+    <p>
+        <label>Shortcode</label>
+        <input type="text" value="[employee_list]">
+    </p>
+<?php }
 
 
 
@@ -81,7 +89,7 @@ function da_PAT_list_callback()
     $pagina = (!empty($pagina_atual))? $pagina_atual : 1;
 
     // setar a quantidade de itens por pagina
-    $qnt_result_pg = 2;
+    $qnt_result_pg = 10;
 
     // calcular o inicio visualizacao
     $inicio = ($qnt_result_pg * $pagina) - $qnt_result_pg;
@@ -114,8 +122,8 @@ function da_PAT_list_callback()
 
                         <?php if (is_admin()): ?>
                             <td>
-                                <a href="admin.php?page=update-emp&id=<?php echo $employee['id']; ?>">Editar</a>
-                                <a href="admin.php?page=delete-emp&id=<?php echo $employee['id']; ?>">Deletar</a>
+                                <a href="admin.php?page=update-pat&id=<?php echo $employee['id']; ?>">Editar</a>
+                                <a href="admin.php?page=delete-pat&id=<?php echo $employee['id']; ?>">Deletar</a>
                             </td>
                         <?php endif; ?>
                     </tr>
@@ -128,12 +136,12 @@ function da_PAT_list_callback()
 
 
 
-function da_emp_update_call()
+function pat_da_emp_update_call()
 {
     global $wpdb;
     
     $url = site_url();
-    $url2 = '/wp-admin/admin.php?page=emp-list';
+    $url2 = '/wp-admin/admin.php?page=pat-emp-list';
     $urlvoltar = $url.$url2;
 
     $table_name = $wpdb->prefix . 'PAT';
@@ -189,7 +197,7 @@ function da_emp_update_call()
 <?php }
 
 
-function da_emp_delete_call()
+function pat_da_emp_delete_call()
 {
     global $wpdb;
     $table_name = $wpdb->prefix . 'PAT';
@@ -202,7 +210,7 @@ function da_emp_delete_call()
             }
         } ?>
         <script>
-            location.href = "<?php echo site_url(); ?>/wp-admin/admin.php";
+            location.href = "<?php echo site_url(); ?>/wp-admin/admin.php?page=pat-emp-list";
         </script>
     <?php } ?>
     <form method="post">

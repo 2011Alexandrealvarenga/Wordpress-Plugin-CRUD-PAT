@@ -16,14 +16,14 @@ if(!function_exists('add_action')){
 // setup
 define('PAT_PLUGIN_URL', __FILE__);
 
-register_activation_hook(PAT_PLUGIN_URL, 'table_creator');
+register_activation_hook(PAT_PLUGIN_URL, 'pat_table_creator');
 register_uninstall_hook(PAT_PLUGIN_URL, 'pat_plugin');
 
 // includes
 include('functions.php');
 
 
-add_action('admin_menu', 'da_display_esm_menu');
+add_action('admin_menu', 'pat_da_display_esm_menu');
 add_action('admin_enqueue_scripts', 'pat_admin_enqueue');
 
 
