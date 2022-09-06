@@ -89,45 +89,77 @@ function da_PAT_list_callback()
 
     $table_name = $wpdb->prefix . 'PAT';
     $employee_list = $wpdb->get_results($wpdb->prepare("select * FROM $table_name ORDER BY local asc LIMIT $inicio, $qnt_result_pg"), ARRAY_A);
-    if (count($employee_list) > 0): ?>        
-        <div style="margin-top: 40px;">
-            <table border="1" cellpadding="10" width="90%">
-                <tr>
-                    <th>ID</th>
-                    <th>Local</th>
-                    <th>Endereço</th>
-                    <th>Municipio</th>
-                    <th>CEP</th>
-                    <th>Telefone</th>
-                    <?php if (is_admin()): ?>
-                        <th>Ação</th>
-                    <?php endif; ?>
-                </tr>
-                <?php $i = 1;
-                foreach ($employee_list as $index => $employee): ?>
-                    <tr>
-                        <td><?php echo $i++; ?></td>
-                        <td><?php echo $employee['local']; ?></td>
-                        <td><?php echo $employee['endereco']; ?></td>
-                        <td><?php echo $employee['municipio']; ?></td>
-                        <td><?php echo $employee['cep']; ?></td>
-                        <td><?php echo $employee['telefone']; ?></td>
+    if (count($employee_list) > 0): ?>  
 
-                        <?php if (is_admin()): ?>
-                            <td>
-                                <a href="admin.php?page=update-pat&id=<?php echo $employee['id']; ?>">Editar</a>
-                                <a href="admin.php?page=delete-pat&id=<?php echo $employee['id']; ?>">Deletar</a>
-                            </td>
-                        <?php endif; ?>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
+        <div class="busca">
+            <input type="text" class="form-control" id="live_search" autocomplete="off" placeholder="Ex.: Cidade, CEP, rua ...">
+        </div>   
+        <div id="searchresult"></div>
+        <script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#live_search").keyup(function(){
+                    var input = $(this).val();
+                    // alert(input);
+
+                    var url_search =  "<?php echo site_url(); ?>/wp-content/plugins/Wordpress-Plugin-CRUD-PAT/busca-resultado.php";
+                    
+                    if(input != ""){
+                        $.ajax({                      
+                            url:url_search,
+                            method: "POST",
+                            data:{input:input},
+
+                            success:function(data){
+                                $("#searchresult").html(data);
+                                $("#searchresult").css('display','block');
+                                $("#registros-todos-dados-tabela").css('display','none');
+                            }
+                        });
+                    }else{
+                        $("#searchresult").css("display","none");
+                        $("#registros-todos-dados-tabela").css('display','block');
+                    }
+                });
+            });
+        </script>   
+        <div id="registros-todos-dados-tabela" style="margin-top: 40px;">
+            <?php resultado_busca($employee_list);?>
         </div>
     <?php else:echo "<h2>Não há Informação</h2>";endif;
 }
 
 
+function resultado_busca($employee_list){?>
+    <table border="1" cellpadding="10" width="90%">
+        <tr>
+            <th>ID</th>
+            <th>Local</th>
+            <th>Endereço</th>
+            <th>Municipio</th>
+            <th>CEP</th>
+            <th>Telefone</th>
+            <th>Ação</th>
+        </tr>
+        <?php $i = 1;
+        foreach ($employee_list as $index => $employee): ?>
+            <tr>
+                <td><?php echo $i++; ?></td>
+                <td><?php echo $employee['local']; ?></td>
+                <td><?php echo $employee['endereco']; ?></td>
+                <td><?php echo $employee['municipio']; ?></td>
+                <td><?php echo $employee['cep']; ?></td>
+                <td><?php echo $employee['telefone']; ?></td>
+                <td>
+                    <a href="admin.php?page=update-pat&id=<?php echo $employee['id']; ?>">Editar</a>
+                    <a href="admin.php?page=delete-pat&id=<?php echo $employee['id']; ?>">Deletar</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+
+<?php }
 
 function pat_da_emp_update_call()
 {
@@ -188,7 +220,6 @@ function pat_da_emp_update_call()
         </p>
     </form>
 <?php }
-
 
 function pat_da_emp_delete_call()
 {
