@@ -1,3 +1,77 @@
-.title{
+
+.content-pat h1.title {
+    text-align: center;
     color:#000;
+}
+table {border-collapse: collapse;}
+table th {text-align: left;}
+
+.content-pat .cont{
+    display: flex;
+    align-items: center;
+    width: 600px;
+    margin-bottom: 10px;
+}
+.content-pat .cont input{
+    width: 500px;
+}
+.content-pat .cont .esq{
+    width: 150px;
+}
+.content-pat .cont .esq span {
+    font-size: 16px;
+    color: #000;
+    font-weight: 400;
+}
+.content-pat .btn-pat {
+    background: #000;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 2px 12px;    
+}
+
+.busca input {
+    width: 600px;
+}
+.content-pat .alert {
+    color: red;
+    margin: 0;
+}
+.busca h3.subtitle,
+.content-pat h2.subtitle {
+    text-align: center;
+    font-size: 24px;
+    margin: 0 0 24px 0;
+    padding: 0;
+}
+.busca h3.subtitle{
+    text-align: left!important;
+    margin-bottom: 8px!important;
+}
+
+.content-pat h3.description {
+    margin: 16px 0 8px 0;
+}
+.btn-editar{
+    background: #098d00;
+}
+.btn-deletar{
+    background: #d92c00;
+}
+
+.btn-deletar,
+.btn-editar{
+    padding: 4px 16px;
+    border-radius: 8px;
+    color: #fff;
+    text-decoration: none;
+
+}
+.btn-deletar:hover,
+.btn-editar:hover{
+    color: #fff;
+    text-decoration: none;    
 }

@@ -52,16 +52,47 @@ function da_PAT_list_callback()
 
     ?>
     <div class="content-pat">
-
-        <h1 class="title">PAT - Unidades</h1><br>
-        <h4 id="msg"><?php echo $msg; ?></h4>
+        <h1 class="title">PAT - Unidades</h1>
+        <h2 class="subtitle">Cadastro de Unidade</h2>
         <form method="post">
-            <label>Local</label><input type="text" name="local" required>
-            <label>Endereço</label><input type="text" name="endereco" >
-            <label>Municipio</label><input type="text" name="municipio" >
-            <label>Telefone</label><input type="text" name="telefone" >
-            <label>CEP</label><input type="text" name="cep" >
-            <button type="submit" name="submit">Cadastrar</button>
+            <div class="cont">
+                <div class="esq">
+                    <span>Local</span>
+                </div>
+                <input type="text" name="local" required><br>
+            </div>
+            <div class="cont">
+
+                <div class="esq">
+                    <span>endereço</span>
+                </div>
+                <input type="text" name="endereco" required><br>
+            </div>
+            <div class="cont">
+                <div class="esq">
+                    <span>Municipio</span>
+                </div>
+                <input type="text" name="municipio" ><br>
+            </div>
+            <div class="cont">
+                <div class="esq">
+                    <span>Telefone</span>
+                </div>
+                <input type="text" name="telefone" ><br>
+            </div>
+            <div class="cont">
+                <div class="esq">
+                    <span>CEP</span>
+                </div>
+                <input type="text" name="cep" ><br>
+            </div>
+            <div class="cont">
+                <div class="esq">
+                    <h4 id="msg" class="alert"><?php echo $msg; ?></h4>
+                    <button class="btn-pat" type="submit" name="submit">CADASTRAR</button>
+
+                </div>
+            </div>           
         </form>
     </div>
     <?php 
@@ -81,9 +112,10 @@ function da_PAT_list_callback()
     if (count($employee_list) > 0): ?>  
 
         <div class="busca">
-            <input type="text" class="form-control" id="live_search" autocomplete="off" placeholder="Ex.: Cidade, CEP, rua ...">
+            <h3 class="subtitle">Realize a busca da unidade</h3>
+            <input type="text" class="form-control" id="live_search" autocomplete="off" placeholder="Ex.: Cidade, CEP, Endereço ...">
         </div>   
-        <div id="searchresult" style="margin: 40px 10px 0 0; display: block;"></div>
+        <div id="searchresult" style="margin: 24px 10px 0 0; display: block;"></div>
         <script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         <script type="text/javascript">
@@ -112,7 +144,7 @@ function da_PAT_list_callback()
                 });
             });
         </script>   
-        <div id="registros-todos-dados-tabela" style="margin: 40px 10px 0 0;">
+        <div id="registros-todos-dados-tabela" style="margin: 24px 10px 0 0;">
             <?php resultado_busca($employee_list);?>
         </div>
     <?php else:echo "<h2>Não há Informação</h2>";endif;
@@ -140,8 +172,8 @@ function resultado_busca($employee_list){?>
                 <td><?php echo $employee['cep']; ?></td>
                 <td><?php echo $employee['telefone']; ?></td>
                 <td>
-                    <a href="admin.php?page=update-pat&id=<?php echo $employee['id']; ?>">Editar</a>
-                    <a href="admin.php?page=delete-pat&id=<?php echo $employee['id']; ?>">Deletar</a>
+                    <a href="admin.php?page=update-pat&id=<?php echo $employee['id']; ?>" class="btn-editar">Editar</a>
+                    <a href="admin.php?page=delete-pat&id=<?php echo $employee['id']; ?>" class="btn-deletar">Deletar</a>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -160,41 +192,73 @@ function pat_da_emp_update_call()
     $table_name = $wpdb->prefix . 'PAT';
     $msg = '';
     $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
-    if (isset($_REQUEST['update'])) {
-        if (!empty($id)) {
-            $wpdb->update("$table_name", [
-                "local" => $_REQUEST['local'], 
-                'endereco' => $_REQUEST['endereco'], 
-                'municipio' => $_REQUEST['municipio'], 
-                'telefone' => $_REQUEST['telefone'],
-                'cep' => $_REQUEST['cep']            
-        ], ["id" => $id]);
-            $msg = 'Data updated';
-            echo '<a href="'. $urlvoltar.'">Voltar para a lista</a>';
-        }
-    }
+    
     $employee_details = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table_name where id = %d", $id), ARRAY_A); ?>
-   
-    <h4><?php echo $msg; ?></h4>
-    <form method="post">        
-        <label>Local</label>
-        <input type="text" name="local" value="<?php echo $employee_details['local']; ?>" required>
+   <div class="content-pat">
+        <h1 class="title">PAT - Unidades</h1>
+        <h2 class="subtitle">Atualização de Cadastro de Unidade</h2>
+        <form method="post">     
+            <div class="cont">
+                <div class="esq">
+                    <span>Local</span>
+                </div>
+                <input type="text" name="local" value="<?php echo $employee_details['local']; ?>" required><br>
+            </div>  
+            <div class="cont">
+                <div class="esq">
+                    <span>Endereço</span>
+                </div>
+                <input type="text" name="endereco" value="<?php echo $employee_details['endereco']; ?>" ><br>
+            </div> 
+            <div class="cont">
+                <div class="esq">
+                    <span>Municipio</span>
+                </div>
+                <input type="text" name="municipio" value="<?php echo $employee_details['municipio']; ?>" ><br>
+            </div>
+            <div class="cont">
+                <div class="esq">
+                    <span>Telefone</span>
+                </div>
+                <input type="text" name="telefone" value="<?php echo $employee_details['telefone']; ?>" ><br>
+            </div>
+            <div class="cont">
+                <div class="esq">
+                    <span>CEP</span>
+                </div>
+                <input type="text" name="cep" value="<?php echo $employee_details['cep']; ?>" ><br>
+            </div>
+            <div class="cont">
+                <div class="esq">
+                    <button class="btn-pat" type="submit" name="update">ATUALIZAR</button>
+                </div>
+            </div>
+            <div class="cont">
+                <div class="esq">
+                    <?php                     
+                        if (isset($_REQUEST['update'])) {
+                            if (!empty($id)) {
+                                $wpdb->update("$table_name", [
+                                    "local" => $_REQUEST['local'], 
+                                    'endereco' => $_REQUEST['endereco'], 
+                                    'municipio' => $_REQUEST['municipio'], 
+                                    'telefone' => $_REQUEST['telefone'],
+                                    'cep' => $_REQUEST['cep']            
+                            ], ["id" => $id]);
+                                $msg = 'Atualização realizada!';
+                                echo '<h4 class="alert">    '. $msg .'</h4>';
+                                echo '<a href="'. $urlvoltar.'" class="link-back">Voltar para a lista</a>';
+                            }
+                        }
+                    ?>
+                    
+                </div>
+            </div> 
+            
+            
 
-        <label>Endereço</label>
-        <input type="text" name="endereco" value="<?php echo $employee_details['endereco']; ?>" >
 
-        <label>Município</label>
-        <input type="text" name="municipio" value="<?php echo $employee_details['municipio']; ?>" >
-
-        <label>Telefone</label>
-        <input type="text" name="telefone" value="<?php echo $employee_details['telefone']; ?>" >
-
-        <label>CEP</label>
-        <input type="text" name="cep" value="<?php echo $employee_details['cep']; ?>" >
-
-        <button type="submit" name="update">Atualizar</button>
-
-    </form>
+        </form>
 <?php }
 
 function pat_da_emp_delete_call()
@@ -209,17 +273,18 @@ function pat_da_emp_delete_call()
                 $wpdb->delete("$table_name", array('id' => $id,));
             }
         } ?>
-        <script>
-            location.href = "<?php echo site_url(); ?>/wp-admin/admin.php?page=pat-emp-list";
-        </script>
+        <script>location.href = "<?php echo site_url(); ?>/wp-admin/admin.php?page=pat-emp-list";</script>
     <?php } ?>
     <form method="post">
-        <div class="delete-register">
-            <label>Deseja realmente apagar?</label><br>
-            <input type="radio" name="conf" value="yes">Sim
-            <input type="radio" name="conf" value="no" checked>Não        
+        <div class="content-pat">
+            <h1 class="title">PAT - Unidades</h1>
+            <h2 class="subtitle">Exclusão de cadastro de Unidade</h2>
+
+            <h3 class="description">Deseja realmente apagar?</h3 >
+            <input type="radio" name="conf" value="yes" checked>Sim
+            <input type="radio" name="conf" value="no" >Não  <br><br>      
         
-            <button type="submit" name="delete">Apagar</button>
+            <button class="btn-pat" type="submit" name="delete">Apagar</button>
             <input type="hidden" name="id" value="<?php echo $id; ?>">
         </div>        
     </form>

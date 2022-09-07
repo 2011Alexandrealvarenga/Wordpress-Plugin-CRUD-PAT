@@ -16,36 +16,39 @@ if(isset($_POST['input'])){
     if($query > 0){
         
         ?>
-        <table class="table table-bordered table-striped mt-4" border="1" cellpadding="10" width="90%">
-            <thead>
-                <tr>
-                    <th>ID</th>  
-                    <th>Local</th>  
-                    <th>Endereço</th>
-                    <th>Município</th>
-                    <th>CEP</th>
-                    <th>Telefone</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                foreach($query as $row){?>
-                <tr>
-                    <td><?php echo $row->id;?></td>
-                    <td><?php echo $row->local;?></td>
-                    <td><?php echo $row->endereco;?></td>
-                    <td><?php echo $row->municipio;?></td>
-                    <td><?php echo $row->cep;?></td>
-                    <td><?php echo $row->telefone;?></td>
-                        <td>
-                            <a href="admin.php?page=update-pat&id=<?php echo $row->id;?>">Editar</a>
-                            <a href="admin.php?page=delete-pat&id=<?php echo $row->id;?>">Deletar</a>
-                        </td>
-                </tr>
-                <?php }?>
-            </tbody>
-        </table>
+        <div class="content-pat">
+
+            <table class="table table-bordered table-striped mt-4" border="1" cellpadding="10" width="90%">
+                <thead>
+                    <tr>
+                        <th>ID</th>  
+                        <th>Local</th>  
+                        <th>Endereço</th>
+                        <th>Município</th>
+                        <th>CEP</th>
+                        <th>Telefone</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    foreach($query as $row){?>
+                    <tr>
+                        <td><?php echo $row->id;?></td>
+                        <td><?php echo $row->local;?></td>
+                        <td><?php echo $row->endereco;?></td>
+                        <td><?php echo $row->municipio;?></td>
+                        <td><?php echo $row->cep;?></td>
+                        <td><?php echo $row->telefone;?></td>
+                            <td>
+                                <a href="admin.php?page=update-pat&id=<?php echo $row->id;?>" class="btn-editar">Editar</a>
+                                <a href="admin.php?page=delete-pat&id=<?php echo $row->id;?>" class="btn-deletar">Deletar</a>
+                            </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+        </div>
     <?php
     }else{
         echo "<h6 class='text-danger text-center mt-3'>Não foi encontrado informações</h6>";
