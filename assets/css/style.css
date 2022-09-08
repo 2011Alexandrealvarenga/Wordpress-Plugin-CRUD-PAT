@@ -24,13 +24,15 @@ table th {text-align: left;}
     font-weight: 400;
 }
 .content-pat .btn-pat {
-    background: #000;
+    background: #00648b;
     color: #fff;
     font-weight: 500;
     font-size: 16px;
     border-radius: 8px;
     margin-bottom: 20px;
-    padding: 2px 12px;    
+    padding: 4px 12px;
+    border: 0px!important;    
+    cursor: pointer;
 }
 
 .busca input {
