@@ -113,7 +113,7 @@ function da_PAT_list_callback()
 
         <div class="busca">
             <h3 class="subtitle">Realize a busca da unidade</h3>
-            <input type="text" class="form-control" id="live_search" autocomplete="off" placeholder="Ex.: Cidade, CEP, Endereço ...">
+            <input type="text" class="form-control" id="live_search" autocomplete="off" placeholder="Ex.: Município, CEP, Endereço ...">
         </div>   
         <div id="searchresult" style="margin: 24px 10px 0 0; display: block;"></div>
         <script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
