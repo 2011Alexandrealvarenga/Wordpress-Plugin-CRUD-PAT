@@ -96,19 +96,9 @@ function da_PAT_list_callback()
         </form>
     </div>
     <?php 
-    // lista de registro
-    // receber o numero da pagina
-    $pagina_atual = filter_input(INPUT_GET, 'paged', FILTER_SANITIZE_NUMBER_INT);
-    $pagina = (!empty($pagina_atual))? $pagina_atual : 1;
-
-    // setar a quantidade de itens por pagina
-    $qnt_result_pg = 10;
-
-    // calcular o inicio visualizacao
-    $inicio = ($qnt_result_pg * $pagina) - $qnt_result_pg;
 
     $table_name = $wpdb->prefix . 'PAT';
-    $employee_list = $wpdb->get_results($wpdb->prepare("select * FROM $table_name ORDER BY local asc LIMIT $inicio, $qnt_result_pg"), ARRAY_A);
+    $employee_list = $wpdb->get_results($wpdb->prepare("select * FROM $table_name ORDER BY local asc "), ARRAY_A);
     if (count($employee_list) > 0): ?>  
 
         <div class="busca">
