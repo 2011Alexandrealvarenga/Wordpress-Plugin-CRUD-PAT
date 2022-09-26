@@ -7,11 +7,14 @@ function pat_table_creator()
     $sql = "DROP TABLE IF EXISTS $table_name;
             CREATE TABLE $table_name(
             id mediumint(11) NOT NULL AUTO_INCREMENT,
-            local varchar(50) NOT NULL,
+
+            municipios varchar(50) NOT NULL,
+            centro_regional varchar(50) NOT NULL,
+            func_responsavel varchar(50) NOT NULL,
             endereco varchar (250) NOT NULL,
-            municipio varchar (250) NOT NULL,
             telefone varchar (250) NOT NULL,
-            cep varchar (10) NOT NULL,
+            email varchar (50) NOT NULL,
+
             PRIMARY KEY id(id)
             )$charset_collate;";
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -36,11 +39,12 @@ function da_PAT_list_callback()
     $msg = '';
     if (isset($_REQUEST['submit'])) {
         $wpdb->insert("$table_name", [
-            "local" => $_REQUEST['local'],
+            "municipios" => $_REQUEST['municipios'],
+            'centro_regional' => $_REQUEST['centro_regional'],
+            'func_responsavel' => $_REQUEST['func_responsavel'],
             'endereco' => $_REQUEST['endereco'],
-            'municipio' => $_REQUEST['municipio'],
             'telefone' => $_REQUEST['telefone'],
-            'cep' => $_REQUEST['cep']
+            'email' => $_REQUEST['email']
         ]);
 
         if ($wpdb->insert_id > 0) {
@@ -57,22 +61,28 @@ function da_PAT_list_callback()
         <form method="post">
             <div class="cont">
                 <div class="esq">
-                    <span>Local</span>
+                    <span>Municipios</span>
                 </div>
-                <input type="text" name="local" required><br>
+                <input type="text" name="municipios" required><br>
             </div>
             <div class="cont">
 
                 <div class="esq">
-                    <span>endereço</span>
+                    <span>Centro Regional</span>
                 </div>
-                <input type="text" name="endereco" required><br>
+                <input type="text" name="centro_regional" required><br>
             </div>
             <div class="cont">
                 <div class="esq">
-                    <span>Municipio</span>
+                    <span>Funcionário Responsável</span>
                 </div>
-                <input type="text" name="municipio" ><br>
+                <input type="text" name="func_responsavel" ><br>
+            </div>
+            <div class="cont">
+                <div class="esq">
+                    <span>Endereço</span>
+                </div>
+                <input type="text" name="endereco" ><br>
             </div>
             <div class="cont">
                 <div class="esq">
@@ -82,9 +92,9 @@ function da_PAT_list_callback()
             </div>
             <div class="cont">
                 <div class="esq">
-                    <span>CEP</span>
+                    <span>Email</span>
                 </div>
-                <input type="text" name="cep" ><br>
+                <input type="text" name="email" ><br>
             </div>
             <div class="cont">
                 <div class="esq">
@@ -98,7 +108,7 @@ function da_PAT_list_callback()
     <?php 
 
     $table_name = $wpdb->prefix . 'PAT';
-    $employee_list = $wpdb->get_results($wpdb->prepare("select * FROM $table_name ORDER BY local asc "), ARRAY_A);
+    $employee_list = $wpdb->get_results($wpdb->prepare("select * FROM $table_name ORDER BY municipios asc "), ARRAY_A);
     if (count($employee_list) > 0): ?>  
 
         <div class="busca">
@@ -145,11 +155,13 @@ function resultado_busca($employee_list){?>
     <table border="1" cellpadding="5" width="100%">
         <tr>
             <th>ID</th>
-            <th>Local</th>
-            <th>Endereço</th>
-            <th>Municipio</th>
-            <th>CEP</th>
+            <th>Municipios</th>
+            <th>Centro Regional</th>
+            <th>Func. Responsável</th>
+            <th>endereco</th>
             <th>Telefone</th>
+            <th>Email</th>
+
             <th>Editar</th>
             <th>Deletar</th>
         </tr>
@@ -157,11 +169,13 @@ function resultado_busca($employee_list){?>
         foreach ($employee_list as $index => $employee): ?>
             <tr>
                 <td><?php echo $i++; ?></td>
-                <td><?php echo $employee['local']; ?></td>
+                <td><?php echo $employee['municipios']; ?></td>
+                <td><?php echo $employee['centro_regional']; ?></td>
+                <td><?php echo $employee['func_responsavel']; ?></td>
                 <td><?php echo $employee['endereco']; ?></td>
-                <td><?php echo $employee['municipio']; ?></td>
-                <td><?php echo $employee['cep']; ?></td>
                 <td><?php echo $employee['telefone']; ?></td>
+                <td><?php echo $employee['email']; ?></td>
+
                 <td><a href="admin.php?page=update-pat&id=<?php echo $employee['id']; ?>" class="btn-editar">Editar</a></td>
                 <td><a href="admin.php?page=delete-pat&id=<?php echo $employee['id']; ?>" class="btn-deletar">Deletar</a></td>
             </tr>
@@ -191,8 +205,20 @@ function pat_da_emp_update_call()
                 <div class="esq">
                     <span>Local</span>
                 </div>
-                <input type="text" name="local" value="<?php echo $employee_details['local']; ?>" required><br>
+                <input type="text" name="municipios" value="<?php echo $employee_details['local']; ?>" required><br>
             </div>  
+            <div class="cont">
+                <div class="esq">
+                    <span>Municipio</span>
+                </div>
+                <input type="text" name="centro_regional" value="<?php echo $employee_details['municipio']; ?>" ><br>
+            </div>
+            <div class="cont">
+                <div class="esq">
+                    <span>CEP</span>
+                </div>
+                <input type="text" name="func_responsavel" value="<?php echo $employee_details['cep']; ?>" ><br>
+            </div>
             <div class="cont">
                 <div class="esq">
                     <span>Endereço</span>
@@ -201,21 +227,15 @@ function pat_da_emp_update_call()
             </div> 
             <div class="cont">
                 <div class="esq">
-                    <span>Municipio</span>
-                </div>
-                <input type="text" name="municipio" value="<?php echo $employee_details['municipio']; ?>" ><br>
-            </div>
-            <div class="cont">
-                <div class="esq">
                     <span>Telefone</span>
                 </div>
                 <input type="text" name="telefone" value="<?php echo $employee_details['telefone']; ?>" ><br>
             </div>
             <div class="cont">
                 <div class="esq">
-                    <span>CEP</span>
+                    <span>E-mail</span>
                 </div>
-                <input type="text" name="cep" value="<?php echo $employee_details['cep']; ?>" ><br>
+                <input type="text" name="email" value="<?php echo $employee_details['telefone']; ?>" ><br>
             </div>
             <div class="cont">
                 <div class="esq">
@@ -228,11 +248,12 @@ function pat_da_emp_update_call()
                         if (isset($_REQUEST['update'])) {
                             if (!empty($id)) {
                                 $wpdb->update("$table_name", [
-                                    "local" => $_REQUEST['local'], 
+                                    "municipios" => $_REQUEST['municipios'], 
+                                    "centro_regional" => $_REQUEST['centro_regional'],
+                                    "func_responsavel" => $_REQUEST['func_responsavel'],
                                     'endereco' => $_REQUEST['endereco'], 
-                                    'municipio' => $_REQUEST['municipio'], 
                                     'telefone' => $_REQUEST['telefone'],
-                                    'cep' => $_REQUEST['cep']            
+                                    'email' => $_REQUEST['email']            
                             ], ["id" => $id]);
                                 $msg = 'Atualização realizada!';
                                 echo '<h4 class="alert">    '. $msg .'</h4>';
