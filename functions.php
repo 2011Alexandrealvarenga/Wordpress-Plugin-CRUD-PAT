@@ -205,19 +205,19 @@ function pat_da_emp_update_call()
                 <div class="esq">
                     <span>Local</span>
                 </div>
-                <input type="text" name="municipios" value="<?php echo $employee_details['local']; ?>" required><br>
+                <input type="text" name="municipios" value="<?php echo $employee_details['municipios']; ?>" required><br>
             </div>  
             <div class="cont">
                 <div class="esq">
                     <span>Municipio</span>
                 </div>
-                <input type="text" name="centro_regional" value="<?php echo $employee_details['municipio']; ?>" ><br>
+                <input type="text" name="centro_regional" value="<?php echo $employee_details['centro_regional']; ?>" ><br>
             </div>
             <div class="cont">
                 <div class="esq">
                     <span>CEP</span>
                 </div>
-                <input type="text" name="func_responsavel" value="<?php echo $employee_details['cep']; ?>" ><br>
+                <input type="text" name="func_responsavel" value="<?php echo $employee_details['func_responsavel']; ?>" ><br>
             </div>
             <div class="cont">
                 <div class="esq">
@@ -235,7 +235,7 @@ function pat_da_emp_update_call()
                 <div class="esq">
                     <span>E-mail</span>
                 </div>
-                <input type="text" name="email" value="<?php echo $employee_details['telefone']; ?>" ><br>
+                <input type="text" name="email" value="<?php echo $employee_details['email']; ?>" ><br>
             </div>
             <div class="cont">
                 <div class="esq">
