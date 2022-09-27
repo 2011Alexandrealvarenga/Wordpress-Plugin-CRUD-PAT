@@ -203,19 +203,19 @@ function pat_da_emp_update_call()
         <form method="post">     
             <div class="cont">
                 <div class="esq">
-                    <span>Local</span>
+                    <span>Município</span>
                 </div>
                 <input type="text" name="municipios" value="<?php echo $employee_details['municipios']; ?>" required><br>
             </div>  
             <div class="cont">
                 <div class="esq">
-                    <span>Municipio</span>
+                    <span>Centro Regional</span>
                 </div>
                 <input type="text" name="centro_regional" value="<?php echo $employee_details['centro_regional']; ?>" ><br>
             </div>
             <div class="cont">
                 <div class="esq">
-                    <span>CEP</span>
+                    <span>Func. Responsável</span>
                 </div>
                 <input type="text" name="func_responsavel" value="<?php echo $employee_details['func_responsavel']; ?>" ><br>
             </div>
