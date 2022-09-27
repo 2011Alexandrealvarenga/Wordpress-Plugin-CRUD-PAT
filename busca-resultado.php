@@ -29,8 +29,8 @@ if(isset($_POST['input'])){
                         <th>Endereço</th>
                         <th>Telefone</th>
                         <th>E-mail</th>
-
-                        <th>Ação</th>
+                        <th>Editar</th>
+                        <th>Deletar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,11 +44,8 @@ if(isset($_POST['input'])){
                         <td><?php echo $row->endereco;?></td>
                         <td><?php echo $row->telefone;?></td>
                         <td><?php echo $row->email;?></td>
-
-                            <td>
-                                <a href="admin.php?page=update-pat&id=<?php echo $row->id;?>" class="btn-editar">Editar</a>
-                                <a href="admin.php?page=delete-pat&id=<?php echo $row->id;?>" class="btn-deletar">Deletar</a>
-                            </td>
+                        <td><a href="admin.php?page=update-pat&id=<?php echo $row->id;?>" class="btn-editar">Editar</a></td>
+                        <td><a href="admin.php?page=delete-pat&id=<?php echo $row->id;?>" class="btn-deletar">Deletar</a></td>
                     </tr>
                     <?php }?>
                 </tbody>
