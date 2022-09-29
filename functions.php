@@ -176,8 +176,8 @@ function resultado_busca($employee_list){?>
                 <td><?php echo $employee['telefone']; ?></td>
                 <td><?php echo $employee['email']; ?></td>
 
-                <td><a href="admin.php?page=update-pat&id=<?php echo $employee['id']; ?>" class="btn-editar">Editar</a></td>
-                <td><a href="admin.php?page=delete-pat&id=<?php echo $employee['id']; ?>" class="btn-deletar">Deletar</a></td>
+                <td><a href="admin.php?page=update-pat&id=<?php echo $employee['id']; ?>" class="btn-editar">EDITAR</a></td>
+                <td><a href="admin.php?page=delete-pat&id=<?php echo $employee['id']; ?>" class="btn-deletar">DELETAR</a></td>
             </tr>
         <?php endforeach; ?>
     </table>
@@ -294,7 +294,7 @@ function pat_da_emp_delete_call()
             <input type="radio" name="conf" value="yes" checked>Sim
             <input type="radio" name="conf" value="no" >Não  <br><br>      
         
-            <button class="btn-pat" type="submit" name="delete">Apagar</button>
+            <button class="btn-pat" type="submit" name="delete">OK</button>
             <input type="hidden" name="id" value="<?php echo $id; ?>">
         </div>        
     </form>
