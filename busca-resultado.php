@@ -7,9 +7,9 @@ if(isset($_POST['input'])){
     $query = $wpdb->get_results("SELECT * FROM wp_pat WHERE 
         municipios LIKE '%{$input}%' OR 
         centro_regional LIKE '%{$input}%' OR
-        func_responsavel LIKE '%{$input}%' OR 
+        -- func_responsavel LIKE '%{$input}%' OR 
         endereco LIKE '%{$input}%' OR 
-        telefone LIKE '%{$input}%' OR 
+        -- telefone LIKE '%{$input}%' OR 
         email LIKE '%{$input}%'
         LIMIT 5
     ");
@@ -25,9 +25,9 @@ if(isset($_POST['input'])){
                         <th>ID</th>  
                         <th>Municípios</th>  
                         <th>Centro Regional</th>
-                        <th>Func Responsável</th>
+                        <!-- <th>Func Responsável</th> -->
                         <th>Endereço</th>
-                        <th>Telefone</th>
+                        <!-- <th>Telefone</th> -->
                         <th>E-mail</th>
                         <th>Editar</th>
                         <th>Deletar</th>
@@ -40,9 +40,9 @@ if(isset($_POST['input'])){
                         <td><?php echo $row->id;?></td>
                         <td><?php echo $row->municipios;?></td>
                         <td><?php echo $row->centro_regional;?></td>
-                        <td><?php echo $row->func_responsavel;?></td>
+                        <!-- <td><?php //echo $row->func_responsavel;?></td> -->
                         <td><?php echo $row->endereco;?></td>
-                        <td><?php echo $row->telefone;?></td>
+                        <!-- <td><?php //echo $row->telefone;?></td> -->
                         <td><?php echo $row->email;?></td>
                         <td><a href="admin.php?page=update-pat&id=<?php echo $row->id;?>" class="btn-editar">EDITAR</a></td>
                         <td><a href="admin.php?page=delete-pat&id=<?php echo $row->id;?>" class="btn-deletar">DELETAR</a></td>

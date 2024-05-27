@@ -27,3 +27,6 @@ include('enqueue.php');
 add_action('admin_menu', 'pat_da_display_esm_menu');
 add_action('admin_enqueue_scripts', 'pat_admin_enqueue_css');
 
+// register_deactivation_hook(__FILE__, 'cwpai_exclude_data_from_xyztable');
+register_activation_hook(__FILE__, 'cwpai_insert_data_into_pat_table');
+
