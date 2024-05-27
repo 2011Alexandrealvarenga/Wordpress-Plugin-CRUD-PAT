@@ -3,7 +3,7 @@ function pat_table_creator()
 {
     global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
-    $table_name = $wpdb->prefix . 'PAT';
+    $table_name = $wpdb->prefix . 'pat';
     $sql = "DROP TABLE IF EXISTS $table_name;
             CREATE TABLE $table_name(
             id mediumint(11) NOT NULL AUTO_INCREMENT,
@@ -35,7 +35,7 @@ function pat_da_display_esm_menu()
 function da_PAT_list_callback()
 {
     global $wpdb;
-    $table_name = $wpdb->prefix . 'PAT';
+    $table_name = $wpdb->prefix . 'pat';
     $msg = '';
     if (isset($_REQUEST['submit'])) {
         $wpdb->insert("$table_name", [
@@ -107,7 +107,7 @@ function da_PAT_list_callback()
     </div>
     <?php 
 
-    $table_name = $wpdb->prefix . 'PAT';
+    $table_name = $wpdb->prefix . 'pat';
     $employee_list = $wpdb->get_results($wpdb->prepare("select * FROM $table_name ORDER BY municipios asc "), ARRAY_A);
     if (count($employee_list) > 0): ?>  
 
@@ -192,7 +192,7 @@ function pat_da_emp_update_call()
     $url2 = '/wp-admin/admin.php?page=pat-emp-list';
     $urlvoltar = $url.$url2;
 
-    $table_name = $wpdb->prefix . 'PAT';
+    $table_name = $wpdb->prefix . 'pat';
     $msg = '';
     $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
     
@@ -274,7 +274,7 @@ function pat_da_emp_update_call()
 function pat_da_emp_delete_call()
 {
     global $wpdb;
-    $table_name = $wpdb->prefix . 'PAT';
+    $table_name = $wpdb->prefix . 'pat';
     $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
     if (isset($_REQUEST['delete'])) {
         if ($_REQUEST['conf'] == 'yes') {
